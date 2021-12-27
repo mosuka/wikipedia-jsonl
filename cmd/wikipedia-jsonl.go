@@ -36,12 +36,27 @@ var (
 				var page *wikiparse.Page
 				page, err = parser.Next()
 				if err == nil {
+					id := page.ID
 					title := page.Title
 					text := util.ParseArticle(title, page.Revisions[0].Text)
+					timestamp := page.Revisions[0].Timestamp
+					ns := page.Ns
+					redirect := page.Redir.Title
 
-					data := map[string]string{
-						"title": title,
-						"text":  text,
+					data := struct {
+						Id        uint64 `json:"id"`
+						Title     string `json:"title"`
+						Text      string `json:"text"`
+						Timestamp string `json:"timestamp"`
+						Ns        uint64 `json:"ns"`
+						Redirect  string `json:"redirect"`
+					}{
+						Id:        id,
+						Title:     title,
+						Text:      text,
+						Timestamp: timestamp,
+						Ns:        ns,
+						Redirect:  redirect,
 					}
 
 					jsonBytes, err := json.Marshal(&data)
