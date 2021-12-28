@@ -5,7 +5,8 @@ wikipedia-jsonl is a CLI that converts Wikipedia dump XML to JSON Lines format.
 
 ## How to use
 
-The following command will convert the XML to JSONL and output them to the standard output.
+At first, download the XML dump from [Wikimedia Downloads](https://dumps.wikimedia.org/backup-index.html).
+Then, run the following command to convert the XML to jsonl and output it to standard output.
 
 ```
 % bzcat enwiki-20211201-pages-articles-multistream.xml.bz2 | wikipedia-jsonl
