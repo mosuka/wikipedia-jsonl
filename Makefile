@@ -76,7 +76,6 @@ build: show-env
 	@echo ">> building binaries"
 	mkdir -p bin
 	$(GO) build $(LDFLAGS) -o bin/wikipedia-jsonl
-	cp scripts/mysql2sqlite bin/.
 
 .PHONY: tag
 tag: show-env
