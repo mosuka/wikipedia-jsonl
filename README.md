@@ -3,13 +3,30 @@
 wikipedia-jsonl is a CLI that converts Wikipedia dump XML to JSON Lines format.
 
 
-## How to use
+## Pretaration
 
-At first, download the XML dump from [Wikimedia Downloads](https://dumps.wikimedia.org/backup-index.html).
-Then, run the following command to convert the XML to jsonl and output it to standard output.
+Download Wikipedia dumps from [Wikimedia Downloads](https://dumps.wikimedia.org/backup-index.html).
+
+- enwiki-YYYYMMDD-pages-articles-multistream.xml.bz2
+- enwiki-YYYYMMDD-categorylinks.sql.gz
+- enwiki-YYYYMMDD-page.sql.gz
+
+
+## Import dumps
+
+onvert the Dump file to Sqlite SQL and import it into Sqlite.
 
 ```
-% bzcat enwiki-20211201-pages-articles-multistream.xml.bz2 | wikipedia-jsonl
+% gunzip -c enwiki-20211201-page.sql.gz | ./bin/mysql2sqlite - | sqlite3 enwiki-20211201.db
+% gunzip -c enwiki-20211201-categorylinks.sql.gz | ./bin/mysql2sqlite - | sqlite3 enwiki-20211201.db
+```
+
+## Convert Wikipedia XML to JSONL
+
+Run the following command to convert the XML to JSONL and output it to stdout.
+
+```
+% bzcat enwiki-20211201-pages-articles-multistream.xml.bz2 | wikipedia-jsonl --abstruct
 ```
 
 Executing the above command will output the results as shown below.
@@ -22,3 +39,4 @@ Executing the above command will output the results as shown below.
 
 ...
 ```
+
