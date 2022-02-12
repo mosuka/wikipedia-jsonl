@@ -5,7 +5,7 @@ CGO_ENABLED ?= 0
 CGO_CFLAGS ?=
 CGO_LDFLAGS ?=
 BUILD_TAGS ?=
-VERSION ?=
+TAG ?=
 BIN_EXT ?=
 DOCKER_REPOSITORY ?= mosuka
 
@@ -22,10 +22,10 @@ ifeq ($(GOARCH),)
   GOARCH = $(shell go version | awk -F ' ' '{print $$NF}' | awk -F '/' '{print $$2}')
 endif
 
-ifeq ($(VERSION),)
-  VERSION = latest
+ifeq ($(TAG),)
+  TAG = latest
 endif
-LDFLAGS = -ldflags "-s -w -X \"github.com/mosuka/wikipedia-jsonl/version.Version=$(VERSION)\""
+LDFLAGS = -ldflags "-s -w -X \"github.com/mosuka/wikipedia-jsonl/version.Version=$(TAG)\""
 
 ifeq ($(GOOS),windows)
   BIN_EXT = .exe
@@ -47,7 +47,7 @@ show-env:
 	@echo "   CGO_CFLAGS        = $(CGO_CFLAGS)"
 	@echo "   CGO_LDFLAGS       = $(CGO_LDFLAGS)"
 	@echo "   BUILD_TAGS        = $(BUILD_TAGS)"
-	@echo "   VERSION           = $(VERSION)"
+	@echo "   TAG               = $(TAG)"
 	@echo "   BIN_EXT           = $(BIN_EXT)"
 	@echo "   LDFLAGS           = $(LDFLAGS)"
 	@echo "   PACKAGES          = $(PACKAGES)"
@@ -81,9 +81,9 @@ build: show-env
 .PHONY: tag
 tag: show-env
 	@echo ">> tagging github"
-ifeq ($(VERSION),$(filter $(VERSION),latest master ""))
-	@echo "please specify VERSION"
+ifeq ($(TAG),$(filter $(TAG),latest master ""))
+	@echo "please specify TAG"
 else
-	git tag -a $(VERSION) -m "Release $(VERSION)"
-	git push origin $(VERSION)
+	git tag -a $(TAG) -m "Release $(TAG)"
+	git push origin $(TAG)
 endif
