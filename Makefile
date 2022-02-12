@@ -70,8 +70,6 @@ clean: show-env
 	@echo ">> cleaning repository"
 	$(GO) clean
 	rm -rf ./bin
-	rm -rf ./data
-	rm -rf ./dist
 
 .PHONY: build
 build: show-env

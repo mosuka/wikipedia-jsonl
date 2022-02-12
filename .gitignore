@@ -13,3 +13,5 @@ dist/
 
 cover.out
 cover.html
+
+mysql2sqlite/
