@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"regexp"
+	"strings"
 
 	"github.com/dustin/go-wikiparse"
 	"github.com/mosuka/wikipedia-jsonl/version"
@@ -93,6 +95,8 @@ var (
 				return err
 			}
 
+			re := regexp.MustCompile(`\n{2,}`)
+
 			for err == nil {
 				var page *wikiparse.Page
 				page, err = parser.Next()
@@ -111,11 +115,15 @@ var (
 					return err
 				}
 
+				text := ""
 				if abstruct {
-					data["text"] = article.GetAbstract()
+					text = article.GetAbstract()
 				} else {
-					data["text"] = article.GetText()
+					text = article.GetText()
 				}
+				text = strings.Trim(text, "\n")
+				text = re.ReplaceAllString(text, "\n")
+				data["text"] = text
 
 				if ns {
 					data["ns"] = page.Ns
