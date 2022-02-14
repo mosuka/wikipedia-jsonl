@@ -3,6 +3,11 @@
 wikipedia-jsonl is a CLI that converts Wikipedia dump XML to JSON Lines format.
 
 
+## Requirement
+
+This command uses [SQLite](https://sqlite.org). Make sure to install SQLite for your platform in advance.
+
+
 ## Download Wikipedia dumps
 
 Download Wikipedia dumps from [Wikimedia Downloads](https://dumps.wikimedia.org/backup-index.html).
